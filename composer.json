@@ -1,0 +1,11 @@
+{
+    "name": "maxbond/all-culture-api",
+    "description": "PHP API wrapper for all.culture.ru API",
+    "authors": [
+        {
+            "name": "Maxim Bondarev",
+            "email": "macintosh.way@gmail.com"
+        }
+    ],
+    "require": {}
+}
