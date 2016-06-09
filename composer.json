@@ -1,11 +1,16 @@
 {
-    "name": "maxbond/all-culture-api",
-    "description": "PHP API wrapper for all.culture.ru API",
+    "name": "maxbond/allculture",
+    "description": "An easy to use API for all.culture.ru",
+    "type": "library",
+    "keywords": ["culture.ru","api"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Maxim Bondarev",
             "email": "macintosh.way@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+    	"php": ">=5.6.0"
+    }
 }
