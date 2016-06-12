@@ -1,6 +1,6 @@
 <?php
 
-namespace Maxbond\Allculture;
+namespace Maxbond\AllCultureAPI;
 
 /**
  * Class AllCultureAPI.
