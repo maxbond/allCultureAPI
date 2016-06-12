@@ -3,8 +3,8 @@ PHP API wrapper for russian culture events database all.culture.ru
 
 ## Usage:
 install via composer: composer require maxbond/allcultureapi
-
-    $api = new AllCultureAPI();
+    
+    $api = new Maxbond\AllCultureAPI\Api;
     try {
             $dateTime = new DateTime();
             $periodStart = $dateTime->format('Y-m-d');

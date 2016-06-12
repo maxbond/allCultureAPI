@@ -11,7 +11,7 @@ namespace Maxbond\AllCultureAPI;
  *
  * @link https://all.culture.ru/public/json/howitworks
  */
-class AllCultureAPI
+class Api
 {    
     const API_VERSION = 2.2;
     

@@ -4,7 +4,6 @@
     "type": "library",
     "keywords": ["culture.ru","all.culture.ru"],
     "license": "MIT",
-    "version": "1.0.1",
     "authors": [
         {
             "name": "Maxim Bondarev",
