@@ -507,6 +507,7 @@ class AllCultureAPI
     public function reset()
     {
         $this->params = [];
+        $this->sort = [];
         $this->url = '';
         $this->response = '';
     }
