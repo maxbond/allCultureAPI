@@ -305,7 +305,7 @@ class AllCultureAPI
     public function setStatus($status)
     {
         if (!in_array($status, $this->allowedStatuses)) {
-            throw new Exception('Wrong status. Here allowed one from list - '
+            throw new \Exception('Wrong status. Here allowed one from list - '
                 .implode(',', $this->allowedStatuses));
         }
         $this->params['status'] = $status;
@@ -371,7 +371,7 @@ class AllCultureAPI
     public function setType($type)
     {
         if (!in_array($type, $this->types)) {
-            throw new Exception('Unknown category '
+            throw new \Exception('Unknown category '
                 .$type.'. Must be one from list: '.implode(',', $this->types));
         }
         $this->params['type'] = $type;
@@ -387,7 +387,7 @@ class AllCultureAPI
     public function setFormat($format)
     {
         if (!in_array($format, $this->formats)) {
-            throw new Exception('Unknown format '
+            throw new \Exception('Unknown format '
                 .$format.'. Must be one from list: '
                 .implode(',', $this->formats));
         }
@@ -436,7 +436,7 @@ class AllCultureAPI
     public function getRequestUrl()
     {
         if ($this->url === '') {
-            throw new Exception('API method must be set.');
+            throw new \Exception('API method must be set.');
         }
         if (!empty($this->sort)) {
             $this->params['sort'] = $this->sort;
@@ -468,7 +468,7 @@ class AllCultureAPI
         if ($this->response) {
             return json_decode($this->response);
         }
-        throw new Exception('Empty response');
+        throw new \Exception('Empty response');
     }
 
     /**
@@ -495,7 +495,7 @@ class AllCultureAPI
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $this->response = curl_exec($curl);
         if (false === $this->response) {
-            throw new Exception("Can't get remote content: "
+            throw new \Exception("Can't get remote content: "
                 .curl_error($curl));
         }
         curl_close($curl);
