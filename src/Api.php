@@ -58,6 +58,10 @@ class Api
      */
     protected $uploadsUrl = 'https://all.culture.ru/uploads/';
 
+    /**
+     * Api constructor.
+     * @param RequestInterface $requester
+     */
     public function __construct($requester)
     {
         $this->requester = $requester;
