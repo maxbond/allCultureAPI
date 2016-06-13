@@ -17,11 +17,5 @@
         "psr-4": {
             "Maxbond\\AllCultureAPI\\": "src/"
         }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.x-dev",
-            "1.0-stable": "1.0.0"
-        }
     }
 }
