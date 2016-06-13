@@ -5,7 +5,6 @@
  * CURL request to api server
  *
  * @author Maxim Bondarev <macintosh.way@gmail.com>
- * @package Maxbond\AllCultureAPI\Request
  */
 
 namespace Maxbond\AllCultureAPI;
@@ -15,7 +14,7 @@ class CurlRequest implements RequestInterface
 {
 
     /**
-     * Send request and save to $this->response.
+     * Send HTTP request.
      * 
      * @param string $url
      * @return string

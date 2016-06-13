@@ -403,7 +403,7 @@ class Api
     }
 
     /**
-     * Set uoutput format csv or json.
+     * Set output format csv or json.
      *
      * @param $format
      *
