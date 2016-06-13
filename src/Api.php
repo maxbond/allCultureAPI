@@ -102,65 +102,81 @@ class Api
      *
      * @param $id
      */
-    public function eventAPI($id)
+    public function getEvent($id)
     {
+        $this->validate();
         $this->url = $this->apiUrl.'events/'.$id;
+        $this->fire();
     }
 
     /**
      * Get events API method.
      */
-    public function eventsAPI()
+    public function getEvents()
     {
+        $this->validate();
         $this->url = $this->apiUrl.'events?';
+        $this->fire();
     }
 
     /**
      * Get articles API method.
      */
-    public function articlesAPI()
+    public function getArticles()
     {
+        $this->validate();
         $this->url = $this->apiUrl.'articles?';
+        $this->fire();
     }
 
     /**
      * Get categories API method.
      */
-    public function categoriesAPI()
+    public function getCategories()
     {
+        $this->validate();
         $this->url = $this->apiUrl.'categories?';
+        $this->fire();
     }
 
     /**
      * Get tags API method.
      */
-    public function tagsAPI()
+    public function getTags()
     {
+        $this->validate();
         $this->url = $this->apiUrl.'tags?';
+        $this->fire();
     }
 
     /**
      * Get locales API method.
      */
-    public function localesAPI()
+    public function getLocales()
     {
+        $this->validate();
         $this->url = $this->apiUrl.'locales?';
+        $this->fire();
     }
 
     /**
      * Get organizations API method.
      */
-    public function organizationsAPI()
+    public function getOrganizations()
     {
+        $this->validate();
         $this->url = $this->apiUrl.'organizations?';
+        $this->fire();
     }
 
     /**
      * Get places API method.
      */
-    public function placesAPI()
+    public function getPlaces()
     {
+        $this->validate();
         $this->url = $this->apiUrl.'places?';
+        $this->fire();
     }
 
     /**
@@ -168,9 +184,11 @@ class Api
      *
      * @param $id
      */
-    public function placeAPI($id)
+    public function getPlace($id)
     {
+        $this->validate();
         $this->url = $this->apiUrl.'places/'.$id;
+        $this->fire();
     }
 
     /**
@@ -472,7 +490,7 @@ class Api
      *
      * @throws \Exception
      */
-    public function get()
+    public function fire()
     {
         $this->doRequest();
         if ($this->response) {
