@@ -11,7 +11,7 @@
 namespace Maxbond\AllCultureAPI;
 
 
-class Request implements RequestInterface
+class CurlRequest implements RequestInterface
 {
 
     /**
