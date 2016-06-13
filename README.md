@@ -1,4 +1,4 @@
-# allCultureAPI
+# AllCultureAPI
 PHP API wrapper for russian culture events database all.culture.ru 
 
 ## Usage:
