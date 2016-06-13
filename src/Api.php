@@ -1,7 +1,7 @@
 <?php
 
 namespace Maxbond\AllCultureAPI;
-
+use Maxbond\AllCultureAPI\Request\Request;
 /**
  * Class AllCultureAPI.
  *
@@ -11,14 +11,9 @@ namespace Maxbond\AllCultureAPI;
  *
  * @link https://all.culture.ru/public/json/howitworks
  */
-class Api
+class Api extends Request
 {    
     const API_VERSION = 2.2;
-    
-    /**
-     * HTTP response
-     */
-    protected $response = '';
     
     /**
      * Sort fields array.
@@ -492,7 +487,7 @@ class Api
      */
     public function fire()
     {
-        $this->doRequest();
+        $this->doRequest($this->getRequestUrl());
         if ($this->response) {
             return json_decode($this->response);
         }
@@ -507,26 +502,6 @@ class Api
     public function getResponse()
     {
         return $this->response;
-    }
-
-    /**
-     * Send request and save to $this->response.
-     *
-     * @throws Exception
-     */
-    public function doRequest()
-    {
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 3);
-        curl_setopt($curl, CURLOPT_HEADER, false);
-        curl_setopt($curl, CURLOPT_URL, $this->getRequestUrl());
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $this->response = curl_exec($curl);
-        if (false === $this->response) {
-            throw new \Exception("Can't get remote content: "
-                .curl_error($curl));
-        }
-        curl_close($curl);
     }
 
     /**
