@@ -189,7 +189,6 @@ class Api
      *
      * @param array $ids
      *
-     * @throws Exception
      */
     public function setIDs($ids)
     {
@@ -201,7 +200,6 @@ class Api
      *
      * @param array $locales
      *
-     * @throws Exception
      */
     public function setLocales($locales)
     {
@@ -213,7 +211,6 @@ class Api
      *
      * @param array $places
      *
-     * @throws Exception
      */
     public function setPlaces($places)
     {
@@ -225,7 +222,6 @@ class Api
      *
      * @param array $subordinations
      *
-     * @throws Exception
      */
     public function setSubordinations($subordinations)
     {
@@ -237,7 +233,6 @@ class Api
      *
      * @param array $strictSubordinations
      *
-     * @throws Exception
      */
     public function setStrictSubordinations($strictSubordinations)
     {
@@ -249,7 +244,6 @@ class Api
      *
      * @param array $organizations
      *
-     * @throws Exception
      */
     public function setOrganizations($organizations)
     {
@@ -261,7 +255,6 @@ class Api
      *
      * @param array $fields
      *
-     * @throws Exception
      */
     public function setFilterByFields($fields)
     {
@@ -300,14 +293,9 @@ class Api
      *
      * @param $status
      *
-     * @throws Exception
      */
     public function setStatus($status)
     {
-        if (!in_array($status, $this->allowedStatuses)) {
-            throw new \Exception('Wrong status. Here allowed one from list - '
-                .implode(',', $this->allowedStatuses));
-        }
         $this->params['status'] = $status;
     }
 
@@ -366,14 +354,10 @@ class Api
      *
      * @param $type
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function setType($type)
     {
-        if (!in_array($type, $this->types)) {
-            throw new \Exception('Unknown category '
-                .$type.'. Must be one from list: '.implode(',', $this->types));
-        }
         $this->params['type'] = $type;
     }
 
@@ -382,15 +366,10 @@ class Api
      *
      * @param $format
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function setFormat($format)
     {
-        if (!in_array($format, $this->formats)) {
-            throw new \Exception('Unknown format '
-                .$format.'. Must be one from list: '
-                .implode(',', $this->formats));
-        }
         $this->params['format'] = $format;
     }
 
@@ -427,11 +406,42 @@ class Api
     }
 
     /**
+     * Validate type, format, status params
+     *
+     * @throws \Exception
+     */
+    public function validate()
+    {
+        // Type have allowed param
+        if(!empty($this->params['type'])) {
+            if (!in_array($this->params['type'], $this->types)) {
+                throw new \Exception('Unknown category '
+                    . $this->params['type'] . '. Must be one from list: ' . implode(',', $this->types));
+            }
+        }
+        // Format have allowed param
+        if(!empty($this->params['format'])) {
+            if (!in_array($this->params['format'], $this->formats)) {
+                throw new \Exception('Unknown format '
+                    .$this->params['format'].'. Must be one from list: '
+                    .implode(',', $this->formats));
+            }
+        }
+        //Status have allowed param
+        if(!empty($this->params['status'])) {
+            if (!in_array($this->params['status'], $this->allowedStatuses)) {
+                throw new \Exception('Wrong status. Here allowed one from list - '
+                    .implode(',', $this->allowedStatuses));
+            }
+        }
+    }
+
+    /**
      * Build and return full request url.
      *
      * @return string
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function getRequestUrl()
     {
@@ -460,7 +470,7 @@ class Api
      *
      * @return object
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function get()
     {
