@@ -1,6 +1,6 @@
 <?php
 /**
- * Class AllCultureAPI.
+ * Class Api.
  *
  * all.culture.ru API wrapper
  *

@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Request
+ * Class CurlRequest
  *
  * CURL request to api server
  *

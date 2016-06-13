@@ -1,6 +1,6 @@
 <?php
 /**
- * Request interface
+ * Interface RequestInterface
  *
  */
 
