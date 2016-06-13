@@ -1,7 +1,4 @@
 <?php
-
-namespace Maxbond\AllCultureAPI\Request;
-
 /**
  * Class Request
  *
@@ -10,7 +7,11 @@ namespace Maxbond\AllCultureAPI\Request;
  * @author Maxim Bondarev <macintosh.way@gmail.com>
  * @package Maxbond\AllCultureAPI\Request
  */
-class Request
+
+namespace Maxbond\AllCultureAPI;
+
+
+class Request implements RequestInterface
 {
 
     /**

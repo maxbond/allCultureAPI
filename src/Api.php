@@ -1,7 +1,4 @@
 <?php
-
-namespace Maxbond\AllCultureAPI;
-
 /**
  * Class AllCultureAPI.
  *
@@ -11,6 +8,9 @@ namespace Maxbond\AllCultureAPI;
  *
  * @link https://all.culture.ru/public/json/howitworks
  */
+
+namespace Maxbond\AllCultureAPI;
+
 class Api
 {    
     const API_VERSION = 2.2;
