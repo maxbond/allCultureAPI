@@ -14,14 +14,10 @@ class Request
 {
 
     /**
-     * HTTP response
-     */
-    protected $response = '';
-    
-    /**
      * Send request and save to $this->response.
      * 
      * @param string $url
+     * @return string
      * @throws \Exception
      */
     public function doRequest($url)
@@ -31,11 +27,13 @@ class Request
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $this->response = curl_exec($curl);
-        if (false === $this->response) {
+        $response = curl_exec($curl);
+        if (false === $response) {
+            curl_close($curl);
             throw new \Exception("Can't get remote content: "
                 .curl_error($curl));
         }
         curl_close($curl);
+        return $response;
     }
 }
