@@ -1,6 +1,7 @@
 <?php
 
 namespace Maxbond\AllCultureAPI;
+
 use Maxbond\AllCultureAPI\Request\Request;
 
 /**
@@ -384,7 +385,6 @@ class Api extends Request
      *
      * @param $type
      *
-     * @throws \Exception
      */
     public function setType($type)
     {
@@ -396,7 +396,6 @@ class Api extends Request
      *
      * @param $format
      *
-     * @throws \Exception
      */
     public function setFormat($format)
     {
@@ -442,14 +441,14 @@ class Api extends Request
      */
     public function validate()
     {
-        // Type have allowed param
+        // Type mus be one from $this->types
         if(!empty($this->params['type'])) {
             if (!in_array($this->params['type'], $this->types)) {
                 throw new \Exception('Unknown category '
                     . $this->params['type'] . '. Must be one from list: ' . implode(',', $this->types));
             }
         }
-        // Format have allowed param
+        // Format must be one from $this->formats
         if(!empty($this->params['format'])) {
             if (!in_array($this->params['format'], $this->formats)) {
                 throw new \Exception('Unknown format '
@@ -457,7 +456,7 @@ class Api extends Request
                     .implode(',', $this->formats));
             }
         }
-        //Status have allowed param
+        //Status must be one from list $this->allowedStatuses
         if(!empty($this->params['status'])) {
             if (!in_array($this->params['status'], $this->allowedStatuses)) {
                 throw new \Exception('Wrong status. Here allowed one from list - '
@@ -504,7 +503,16 @@ class Api extends Request
      */
     public function fire()
     {
-        $this->doRequest($this->getRequestUrl());
+        try {
+            $url = $this->getRequestUrl();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+        try {
+            $this->doRequest($url);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
         if ($this->response) {
             return json_decode($this->response);
         }
