@@ -2,8 +2,6 @@
 
 namespace Maxbond\AllCultureAPI;
 
-use Maxbond\AllCultureAPI\Request\Request;
-
 /**
  * Class AllCultureAPI.
  *
@@ -13,9 +11,17 @@ use Maxbond\AllCultureAPI\Request\Request;
  *
  * @link https://all.culture.ru/public/json/howitworks
  */
-class Api extends Request
+class Api
 {    
     const API_VERSION = 2.2;
+
+    /**
+     * Request object
+     * Must contain doRequest($url) method.
+     *
+     * @var
+     */
+    protected $requester;
     
     /**
      * Sort fields array.
@@ -52,8 +58,9 @@ class Api extends Request
      */
     protected $uploadsUrl = 'https://all.culture.ru/uploads/';
 
-    public function __construct()
+    public function __construct($requester)
     {
+        $this->requester = $requester;
         $this->params = [];
         $this->sort = [];
     }
@@ -510,7 +517,7 @@ class Api extends Request
             throw new \Exception($e->getMessage());
         }
         try {
-            $response = $this->doRequest($url);
+            $response = $this->requester->doRequest($url);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
