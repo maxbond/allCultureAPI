@@ -473,66 +473,6 @@ class Api
     }
 
     /**
-     * Build and return full request url.
-     *
-     * @return string
-     *
-     * @throws \Exception
-     */
-    public function getRequestUrl()
-    {
-        if ($this->url === '') {
-            throw new \Exception('API method must be set.');
-        }
-        if (!empty($this->sort)) {
-            $this->params['sort'] = $this->sort;
-        }
-        $preparedUrl = '';
-        foreach ($this->params as $key => $param) {
-            if (is_array($param)) {
-                $preparedUrl .= $key.'='.implode(',', $param);
-            } else {
-                $preparedUrl .= $key.'='.$param;
-            }
-            $preparedUrl .= '&';
-        }
-        $preparedUrl = substr($preparedUrl, 0, -1);
-
-        return $this->url.$preparedUrl;
-    }
-
-    /**
-     * Do request and return response.
-     *
-     * @return object
-     *
-     * @throws \Exception
-     */
-    public function fire()
-    {
-        $response = null;
-        try {
-            $url = $this->getRequestUrl();
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
-        }
-        try {
-            $response = $this->requester->doRequest($url);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
-        }
-        if ($response) {
-            $jsonResponse = json_decode($response);
-            if(isset($jsonResponse->error)) {
-                throw new \Exception('API error: '.$jsonResponse->error);
-            }
-            return $jsonResponse;
-        }
-        throw new \Exception('Empty response');
-    }
-
-
-    /**
      * Reset all parameters and response.
      */
     public function reset()
@@ -621,5 +561,64 @@ class Api
         $dateTime = new \DateTime($date);
 
         return $dateTime->getTimestamp() * 1000;
+    }
+
+    /**
+     * Build and return full request url.
+     *
+     * @return string
+     *
+     * @throws \Exception
+     */
+    protected function getRequestUrl()
+    {
+        if ($this->url === '') {
+            throw new \Exception('API method must be set.');
+        }
+        if (!empty($this->sort)) {
+            $this->params['sort'] = $this->sort;
+        }
+        $preparedUrl = '';
+        foreach ($this->params as $key => $param) {
+            if (is_array($param)) {
+                $preparedUrl .= $key.'='.implode(',', $param);
+            } else {
+                $preparedUrl .= $key.'='.$param;
+            }
+            $preparedUrl .= '&';
+        }
+        $preparedUrl = substr($preparedUrl, 0, -1);
+
+        return $this->url.$preparedUrl;
+    }
+
+    /**
+     * Do request and return response.
+     *
+     * @return object
+     *
+     * @throws \Exception
+     */
+    protected function fire()
+    {
+        $response = null;
+        try {
+            $url = $this->getRequestUrl();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+        try {
+            $response = $this->requester->doRequest($url);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+        if ($response) {
+            $jsonResponse = json_decode($response);
+            if(isset($jsonResponse->error)) {
+                throw new \Exception('API error: '.$jsonResponse->error);
+            }
+            return $jsonResponse;
+        }
+        throw new \Exception('Empty response');
     }
 }
