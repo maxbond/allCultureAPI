@@ -4,7 +4,7 @@ PHP API wrapper for russian culture events database all.culture.ru
 ## Usage:
 install via composer: composer require maxbond/allcultureapi
     
-    $api = new Maxbond\AllCultureAPI\Api;
+    $api = new Maxbond\AllCultureAPI\Api(new Maxbond\AllCultureAPI\Request);
     $dateTime = new DateTime();
     $periodStart = $dateTime->format('Y-m-d');
     $dateTime->add(new DateInterval('P1D'));
