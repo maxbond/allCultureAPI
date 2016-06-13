@@ -9,8 +9,6 @@ install via composer: composer require maxbond/allcultureapi
     $periodStart = $dateTime->format('Y-m-d');
     $dateTime->add(new DateInterval('P1D'));
     $periodEnd = $dateTime->format('Y-m-d');
-    //Get events Api
-    $api->eventsAPI();
     //Set limit to 10 events
     $api->setLimit(10);
     //Events from date
@@ -18,7 +16,7 @@ install via composer: composer require maxbond/allcultureapi
     //Events to date
     $api->setEnd($periodEnd);
     try {
-        $events = $api->get();
+        $events = $api->getEvents();
     } catch (Exception $e) {
         echo 'error:'.$e->getMessage();
     }
