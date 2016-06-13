@@ -19,7 +19,7 @@ class Api
      * Request object
      * Must contain doRequest($url) method.
      *
-     * @var
+     * @var RequestInterface
      */
     protected $requester;
     
