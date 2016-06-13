@@ -519,15 +519,6 @@ class Api extends Request
         throw new \Exception('Empty response');
     }
 
-    /**
-     * Get response string.
-     *
-     * @return string
-     */
-    public function getResponse()
-    {
-        return $this->response;
-    }
 
     /**
      * Reset all parameters and response.
@@ -537,7 +528,6 @@ class Api extends Request
         $this->params = [];
         $this->sort = [];
         $this->url = '';
-        $this->response = '';
     }
 
     /**
@@ -601,7 +591,7 @@ class Api extends Request
      */
     public function getDate($timestamp, $format)
     {
-        $dateTime = new DateTime();
+        $dateTime = new \DateTime();
         $dateTime->setTimestamp($timestamp / 1000);
 
         return $dateTime->format($format);
@@ -616,7 +606,7 @@ class Api extends Request
      */
     public function getTimestamp($date)
     {
-        $dateTime = new DateTime($date);
+        $dateTime = new \DateTime($date);
 
         return $dateTime->getTimestamp() * 1000;
     }
