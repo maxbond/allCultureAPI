@@ -2,6 +2,14 @@
 
 namespace Maxbond\AllCultureAPI\Request;
 
+/**
+ * Class Request
+ *
+ * CURL request to api server
+ *
+ * @author Maxim Bondarev <macintosh.way@gmail.com>
+ * @package Maxbond\AllCultureAPI\Request
+ */
 class Request
 {
 
