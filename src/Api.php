@@ -97,94 +97,110 @@ class Api extends Request
      * Get one event API method.
      *
      * @param $id
+     * @return object
      */
     public function getEvent($id)
     {
         $this->validate();
         $this->url = $this->apiUrl.'events/'.$id;
-        $this->fire();
+        return $this->fire();
     }
 
     /**
      * Get events API method.
+     *
+     * @return object
      */
     public function getEvents()
     {
         $this->validate();
         $this->url = $this->apiUrl.'events?';
-        $this->fire();
+        return $this->fire();
     }
 
     /**
      * Get articles API method.
+     *
+     * @return object
      */
     public function getArticles()
     {
         $this->validate();
         $this->url = $this->apiUrl.'articles?';
-        $this->fire();
+        return $this->fire();
     }
 
     /**
      * Get categories API method.
+     *
+     * @return object
      */
     public function getCategories()
     {
         $this->validate();
         $this->url = $this->apiUrl.'categories?';
-        $this->fire();
+        return $this->fire();
     }
 
     /**
      * Get tags API method.
+     *
+     * @return object
      */
     public function getTags()
     {
         $this->validate();
         $this->url = $this->apiUrl.'tags?';
-        $this->fire();
+        return $this->fire();
     }
 
     /**
      * Get locales API method.
+     *
+     * @return object
      */
     public function getLocales()
     {
         $this->validate();
         $this->url = $this->apiUrl.'locales?';
-        $this->fire();
+        return $this->fire();
     }
 
     /**
      * Get organizations API method.
+     *
+     * @return object
      */
     public function getOrganizations()
     {
         $this->validate();
         $this->url = $this->apiUrl.'organizations?';
-        $this->fire();
+        return $this->fire();
     }
 
     /**
      * Get places API method.
+     *
+     * @return object
      */
     public function getPlaces()
     {
         $this->validate();
         $this->url = $this->apiUrl.'places?';
-        $this->fire();
+        return $this->fire();
     }
 
     /**
      * Get one place API method.
      *
      * @param $id
+     * @return object
      */
     public function getPlace($id)
     {
         $this->validate();
         $this->url = $this->apiUrl.'places/'.$id;
-        $this->fire();
+        return $this->fire();
     }
 
     /**
