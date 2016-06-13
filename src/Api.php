@@ -2,6 +2,7 @@
 
 namespace Maxbond\AllCultureAPI;
 use Maxbond\AllCultureAPI\Request\Request;
+
 /**
  * Class AllCultureAPI.
  *
