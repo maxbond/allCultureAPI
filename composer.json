@@ -15,7 +15,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Maxbond\\AllCultureAPI\\": "src"
+            "Maxbond\\AllCultureAPI\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
         }
     }
 }
