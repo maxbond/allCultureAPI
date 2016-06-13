@@ -503,18 +503,23 @@ class Api extends Request
      */
     public function fire()
     {
+        $response = null;
         try {
             $url = $this->getRequestUrl();
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
         try {
-            $this->doRequest($url);
+            $response = $this->doRequest($url);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
-        if ($this->response) {
-            return json_decode($this->response);
+        if ($response) {
+            $jsonResponse = json_decode($response);
+            if(isset($jsonResponse->error)) {
+                throw new \Exception('API error: '.$jsonResponse->error);
+            }
+            return $jsonResponse;
         }
         throw new \Exception('Empty response');
     }
