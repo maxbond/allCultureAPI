@@ -2,7 +2,7 @@
 PHP API wrapper for russian culture events database all.culture.ru 
 
 ## Usage:
-install via composer: composer require maxbond/allcultureapi:dev-master
+install via composer: composer require maxbond/allcultureapi
     
     use Maxbond\AllCultureAPI\Api;
     use Maxbond\AllCultureAPI\CurlRequest;
