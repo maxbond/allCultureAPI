@@ -13,7 +13,7 @@ namespace Maxbond\AllCultureAPI;
 
 abstract class ApiActions
 {
-	/**
+    /**
      * Sort fields array.
      *
      * @var array
