@@ -13,7 +13,29 @@ namespace Maxbond\AllCultureAPI;
 
 class Api extends ApiActions
 {    
-    const API_VERSION = 2.2;    
+    const API_VERSION = 2.2;   
+
+    /**
+     * Sort fields array.
+     *
+     * @var array
+     */
+    protected $sort;
+        
+    
+    /**
+     * Http get params.
+     *
+     * @var array
+     */
+    protected $params;
+
+    /**
+     * Request URL.
+     *
+     * @var string
+     */
+    protected $url = '';
         
     /**
      * API base url.
@@ -417,37 +439,6 @@ class Api extends ApiActions
     }
 
     /**
-     * Validate type, format, status params
-     *
-     * @throws \Exception
-     */
-    public function validate()
-    {
-        // Type mus be one from $this->types
-        if(!empty($this->params['type'])) {
-            if (!in_array($this->params['type'], $this->types)) {
-                throw new \Exception('Unknown category '
-                    . $this->params['type'] . '. Must be one from list: ' . implode(',', $this->types));
-            }
-        }
-        // Format must be one from $this->formats
-        if(!empty($this->params['format'])) {
-            if (!in_array($this->params['format'], $this->formats)) {
-                throw new \Exception('Unknown format '
-                    .$this->params['format'].'. Must be one from list: '
-                    .implode(',', $this->formats));
-            }
-        }
-        //Status must be one from list $this->allowedStatuses
-        if(!empty($this->params['status'])) {
-            if (!in_array($this->params['status'], $this->allowedStatuses)) {
-                throw new \Exception('Wrong status. Here allowed one from list - '
-                    .implode(',', $this->allowedStatuses));
-            }
-        }
-    }
-
-    /**
      * Reset all parameters and response.
      */
     public function reset()
@@ -537,5 +528,67 @@ class Api extends ApiActions
 
         return $dateTime->getTimestamp() * 1000;
     }
+
+
+    /**
+     * Validate type, format, status params
+     *
+     * @throws \Exception
+     */
+    protected function validate()
+    {
+        // Type mus be one from $this->types
+        if(!empty($this->params['type'])) {
+            if (!in_array($this->params['type'], $this->types)) {
+                throw new \Exception('Unknown category '
+                    . $this->params['type'] . '. Must be one from list: ' . implode(',', $this->types));
+            }
+        }
+        // Format must be one from $this->formats
+        if(!empty($this->params['format'])) {
+            if (!in_array($this->params['format'], $this->formats)) {
+                throw new \Exception('Unknown format '
+                    .$this->params['format'].'. Must be one from list: '
+                    .implode(',', $this->formats));
+            }
+        }
+        //Status must be one from list $this->allowedStatuses
+        if(!empty($this->params['status'])) {
+            if (!in_array($this->params['status'], $this->allowedStatuses)) {
+                throw new \Exception('Wrong status. Here allowed one from list - '
+                    .implode(',', $this->allowedStatuses));
+            }
+        }
+    }
+
+    /**
+     * Build and return full request url.
+     *
+     * @return string
+     *
+     * @throws \Exception
+     */
+    protected function getRequestUrl()
+    {
+        if ($this->url === '') {
+            throw new \Exception('API method must be set.');
+        }
+        if (!empty($this->sort)) {
+            $this->params['sort'] = $this->sort;
+        }
+        $preparedUrl = '';
+        foreach ($this->params as $key => $param) {
+            if (is_array($param)) {
+                $preparedUrl .= $key.'='.implode(',', $param);
+            } else {
+                $preparedUrl .= $key.'='.$param;
+            }
+            $preparedUrl .= '&';
+        }
+        $preparedUrl = substr($preparedUrl, 0, -1);
+
+        return $this->url.$preparedUrl;
+    }
+
 
 }

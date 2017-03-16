@@ -13,27 +13,6 @@ namespace Maxbond\AllCultureAPI;
 
 abstract class ApiActions
 {
-    /**
-     * Sort fields array.
-     *
-     * @var array
-     */
-    protected $sort;
-        
-    
-    /**
-     * Http get params.
-     *
-     * @var array
-     */
-    protected $params;
-
-	/**
-     * Request URL.
-     *
-     * @var string
-     */
-    protected $url = '';
 
     /**
      * Request object
@@ -45,33 +24,9 @@ abstract class ApiActions
 
     /**
      * Build and return full request url.
-     *
-     * @return string
-     *
-     * @throws \Exception
      */
-    protected function getRequestUrl()
-    {
-        if ($this->url === '') {
-            throw new \Exception('API method must be set.');
-        }
-        if (!empty($this->sort)) {
-            $this->params['sort'] = $this->sort;
-        }
-        $preparedUrl = '';
-        foreach ($this->params as $key => $param) {
-            if (is_array($param)) {
-                $preparedUrl .= $key.'='.implode(',', $param);
-            } else {
-                $preparedUrl .= $key.'='.$param;
-            }
-            $preparedUrl .= '&';
-        }
-        $preparedUrl = substr($preparedUrl, 0, -1);
-
-        return $this->url.$preparedUrl;
-    }
-
+    abstract protected function getRequestUrl();
+    
     /**
      * Do request and return response.
      *
