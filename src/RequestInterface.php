@@ -1,7 +1,6 @@
 <?php
 /**
- * Interface RequestInterface
- *
+ * Interface RequestInterface.
  */
 
 namespace Maxbond\AllCultureAPI;

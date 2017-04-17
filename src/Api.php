@@ -12,8 +12,8 @@
 namespace Maxbond\AllCultureAPI;
 
 class Api extends ApiActions
-{    
-    const API_VERSION = 2.2;   
+{
+    const API_VERSION = 2.2;
 
     /**
      * Sort fields array.
@@ -21,8 +21,7 @@ class Api extends ApiActions
      * @var array
      */
     protected $sort;
-        
-    
+
     /**
      * Http get params.
      *
@@ -36,14 +35,14 @@ class Api extends ApiActions
      * @var string
      */
     protected $url = '';
-        
+
     /**
      * API base url.
      *
      * @var string
      */
     protected $apiUrl = 'https://all.culture.ru/api/2.2/';
-    
+
     /**
      * API image storage URL.
      *
@@ -53,6 +52,7 @@ class Api extends ApiActions
 
     /**
      * Api constructor.
+     *
      * @param RequestInterface $requester
      */
     public function __construct($requester)
@@ -102,12 +102,14 @@ class Api extends ApiActions
      * Get one event API method.
      *
      * @param $id
+     *
      * @return object
      */
     public function getEvent($id)
     {
         $this->validate();
         $this->url = $this->apiUrl.'events/'.$id;
+
         return $this->fire();
     }
 
@@ -120,6 +122,7 @@ class Api extends ApiActions
     {
         $this->validate();
         $this->url = $this->apiUrl.'events?';
+
         return $this->fire();
     }
 
@@ -132,6 +135,7 @@ class Api extends ApiActions
     {
         $this->validate();
         $this->url = $this->apiUrl.'articles?';
+
         return $this->fire();
     }
 
@@ -144,6 +148,7 @@ class Api extends ApiActions
     {
         $this->validate();
         $this->url = $this->apiUrl.'categories?';
+
         return $this->fire();
     }
 
@@ -156,6 +161,7 @@ class Api extends ApiActions
     {
         $this->validate();
         $this->url = $this->apiUrl.'tags?';
+
         return $this->fire();
     }
 
@@ -168,6 +174,7 @@ class Api extends ApiActions
     {
         $this->validate();
         $this->url = $this->apiUrl.'locales?';
+
         return $this->fire();
     }
 
@@ -180,6 +187,7 @@ class Api extends ApiActions
     {
         $this->validate();
         $this->url = $this->apiUrl.'organizations?';
+
         return $this->fire();
     }
 
@@ -192,6 +200,7 @@ class Api extends ApiActions
     {
         $this->validate();
         $this->url = $this->apiUrl.'places?';
+
         return $this->fire();
     }
 
@@ -199,12 +208,14 @@ class Api extends ApiActions
      * Get one place API method.
      *
      * @param $id
+     *
      * @return object
      */
     public function getPlace($id)
     {
         $this->validate();
         $this->url = $this->apiUrl.'places/'.$id;
+
         return $this->fire();
     }
 
@@ -223,7 +234,6 @@ class Api extends ApiActions
      * Set IDs filter.
      *
      * @param array $ids
-     *
      */
     public function setIDs($ids)
     {
@@ -234,7 +244,6 @@ class Api extends ApiActions
      * Add location.
      *
      * @param array $locales
-     *
      */
     public function setLocales($locales)
     {
@@ -245,7 +254,6 @@ class Api extends ApiActions
      * Add place.
      *
      * @param array $places
-     *
      */
     public function setPlaces($places)
     {
@@ -256,7 +264,6 @@ class Api extends ApiActions
      * Add subordination.
      *
      * @param array $subordinations
-     *
      */
     public function setSubordinations($subordinations)
     {
@@ -267,7 +274,6 @@ class Api extends ApiActions
      * Add strict subordination.
      *
      * @param array $strictSubordinations
-     *
      */
     public function setStrictSubordinations($strictSubordinations)
     {
@@ -278,7 +284,6 @@ class Api extends ApiActions
      * Add organization.
      *
      * @param array $organizations
-     *
      */
     public function setOrganizations($organizations)
     {
@@ -289,7 +294,6 @@ class Api extends ApiActions
      * Add field filter to request.
      *
      * @param array $fields
-     *
      */
     public function setFilterByFields($fields)
     {
@@ -327,7 +331,6 @@ class Api extends ApiActions
      * Add events status.
      *
      * @param $status
-     *
      */
     public function setStatus($status)
     {
@@ -388,7 +391,6 @@ class Api extends ApiActions
      * Set type.
      *
      * @param $type
-     *
      */
     public function setType($type)
     {
@@ -399,7 +401,6 @@ class Api extends ApiActions
      * Set output format csv or json.
      *
      * @param $format
-     *
      */
     public function setFormat($format)
     {
@@ -529,23 +530,22 @@ class Api extends ApiActions
         return $dateTime->getTimestamp() * 1000;
     }
 
-
     /**
-     * Validate type, format, status params
+     * Validate type, format, status params.
      *
      * @throws \Exception
      */
     protected function validate()
     {
         // Type mus be one from $this->types
-        if(!empty($this->params['type'])) {
+        if (!empty($this->params['type'])) {
             if (!in_array($this->params['type'], $this->types)) {
                 throw new \Exception('Unknown category '
-                    . $this->params['type'] . '. Must be one from list: ' . implode(',', $this->types));
+                    .$this->params['type'].'. Must be one from list: '.implode(',', $this->types));
             }
         }
         // Format must be one from $this->formats
-        if(!empty($this->params['format'])) {
+        if (!empty($this->params['format'])) {
             if (!in_array($this->params['format'], $this->formats)) {
                 throw new \Exception('Unknown format '
                     .$this->params['format'].'. Must be one from list: '
@@ -553,7 +553,7 @@ class Api extends ApiActions
             }
         }
         //Status must be one from list $this->allowedStatuses
-        if(!empty($this->params['status'])) {
+        if (!empty($this->params['status'])) {
             if (!in_array($this->params['status'], $this->allowedStatuses)) {
                 throw new \Exception('Wrong status. Here allowed one from list - '
                     .implode(',', $this->allowedStatuses));
@@ -564,9 +564,9 @@ class Api extends ApiActions
     /**
      * Build and return full request url.
      *
-     * @return string
-     *
      * @throws \Exception
+     *
+     * @return string
      */
     protected function getRequestUrl()
     {
@@ -589,6 +589,4 @@ class Api extends ApiActions
 
         return $this->url.$preparedUrl;
     }
-
-
 }
