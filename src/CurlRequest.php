@@ -1,6 +1,6 @@
 <?php
 /**
- * Class CurlRequest
+ * Class CurlRequest.
  *
  * CURL request to api server
  *
@@ -9,16 +9,16 @@
 
 namespace Maxbond\AllCultureAPI;
 
-
 class CurlRequest implements RequestInterface
 {
-
     /**
      * Send HTTP request.
-     * 
+     *
      * @param string $url
-     * @return string
+     *
      * @throws \Exception
+     *
+     * @return string
      */
     public function doRequest($url)
     {
@@ -34,6 +34,7 @@ class CurlRequest implements RequestInterface
                 .curl_error($curl));
         }
         curl_close($curl);
+
         return $response;
     }
 }

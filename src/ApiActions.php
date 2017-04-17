@@ -13,7 +13,6 @@ namespace Maxbond\AllCultureAPI;
 
 abstract class ApiActions
 {
-
     /**
      * Request object
      * Must contain doRequest($url) method.
@@ -26,13 +25,13 @@ abstract class ApiActions
      * Build and return full request url.
      */
     abstract protected function getRequestUrl();
-    
+
     /**
      * Do request and return response.
      *
-     * @return object
-     *
      * @throws \Exception
+     *
+     * @return object
      */
     protected function fire()
     {
@@ -49,12 +48,12 @@ abstract class ApiActions
         }
         if ($response) {
             $jsonResponse = json_decode($response);
-            if(isset($jsonResponse->error)) {
+            if (isset($jsonResponse->error)) {
                 throw new \Exception('API error: '.$jsonResponse->error);
             }
+
             return $jsonResponse;
         }
         throw new \Exception('Empty response');
     }
-
 }
