@@ -303,7 +303,7 @@ class Api extends ApiActions
      * @param int $limit
      * @param int $offset
      */
-    public function setLimit(int $limit, int $offset = 0)
+    public function setLimit(int $limit, $offset = 0)
     {
         $this->params['limit'] = $limit;
         $this->params['offset'] = $offset;
@@ -315,7 +315,7 @@ class Api extends ApiActions
      * @param string $field
      * @param bool   $descending
      */
-    public function addSortField(string $field, bool $descending = false)
+    public function addSortField(string $field, $descending = false)
     {
         if ($descending === true) {
             $this->sort[] = '-'.$field;
