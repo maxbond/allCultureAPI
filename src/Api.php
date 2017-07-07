@@ -508,24 +508,24 @@ class Api extends ApiActions
     {
         // Type mus be one from $this->types
         if (!empty($this->params['type'])) {
-            if (!in_array($this->params['type'], $this->types)) {
+            if (!in_array($this->params['type'], self::CATEGORIES_TYPES)) {
                 throw new \Exception('Unknown category '
-                    .$this->params['type'].'. Must be one from list: '.implode(',', $this->types));
+                    .$this->params['type'].'. Must be one from list: '.implode(',', self::CATEGORIES_TYPES));
             }
         }
         // Format must be one from $this->formats
         if (!empty($this->params['format'])) {
-            if (!in_array($this->params['format'], $this->formats)) {
+            if (!in_array($this->params['format'], self::OUTPUT_FORMATS)) {
                 throw new \Exception('Unknown format '
                     .$this->params['format'].'. Must be one from list: '
-                    .implode(',', $this->formats));
+                    .implode(',', self::OUTPUT_FORMATS));
             }
         }
         //Status must be one from list $this->allowedStatuses
         if (!empty($this->params['status'])) {
-            if (!in_array($this->params['status'], $this->allowedStatuses)) {
+            if (!in_array($this->params['status'], self::ALLOWED_STATUSES)) {
                 throw new \Exception('Wrong status. Here allowed one from list - '
-                    .implode(',', $this->allowedStatuses));
+                    .implode(',', self::ALLOWED_STATUSES));
             }
         }
     }
