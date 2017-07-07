@@ -11,6 +11,10 @@ namespace Maxbond\AllCultureAPI;
 
 class CurlRequest implements RequestInterface
 {
+    const CONNECTION_TIMEOUT = 3;
+    const OPTION_HEADER = false;
+    const OPTION_RETURN_TRANSFER = true;
+
     /**
      * Send HTTP request.
      *
@@ -20,13 +24,13 @@ class CurlRequest implements RequestInterface
      *
      * @return string
      */
-    public function doRequest($url)
+    public function doRequest(string $url) : string
     {
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 3);
-        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, self::CONNECTION_TIMEOUT);
+        curl_setopt($curl, CURLOPT_HEADER, self::OPTION_HEADER);
         curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, self::OPTION_RETURN_TRANSFER);
         $response = curl_exec($curl);
         if (false === $response) {
             curl_close($curl);

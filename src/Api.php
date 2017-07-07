@@ -13,7 +13,53 @@ namespace Maxbond\AllCultureAPI;
 
 class Api extends ApiActions
 {
+    use Dates;
+
+    /**
+     * API version
+     */
     const API_VERSION = 2.2;
+
+    /**
+     * API base url.
+     */
+    const API_URL = 'https://all.culture.ru/api/' . self::API_VERSION;
+
+    /**
+     * API image storage URL.
+     */
+    const UPLOADS_URL = 'https://all.culture.ru/uploads/';
+
+
+    /**
+     * Status for request filter.
+     */
+    const ALLOWED_STATUSES = [
+        'accepted',
+        'new',
+        'rejected',
+    ];
+
+    /**
+     * Types for categories.
+     */
+    const CATEGORIES_TYPES = [
+        'events',
+        'articles',
+        'categories',
+        'tags',
+        'locales',
+        'organizations',
+        'places',
+    ];
+
+    /**
+     * Output formats for articles and places.
+     */
+    CONST OUTPUT_FORMATS = [
+        'json',
+        'csv',
+    ];
 
     /**
      * Sort fields array.
@@ -36,67 +82,18 @@ class Api extends ApiActions
      */
     protected $url = '';
 
-    /**
-     * API base url.
-     *
-     * @var string
-     */
-    protected $apiUrl = 'https://all.culture.ru/api/2.2/';
-
-    /**
-     * API image storage URL.
-     *
-     * @var string
-     */
-    protected $uploadsUrl = 'https://all.culture.ru/uploads/';
 
     /**
      * Api constructor.
      *
      * @param RequestInterface $requester
      */
-    public function __construct($requester)
+    public function __construct(RequestInterface $requester)
     {
         $this->requester = $requester;
         $this->params = [];
         $this->sort = [];
     }
-
-    /**
-     * Status for request filter.
-     *
-     * @var array
-     */
-    protected $allowedStatuses = [
-        'accepted',
-        'new',
-        'rejected',
-    ];
-
-    /**
-     * Types for categories.
-     *
-     * @var array
-     */
-    protected $types = [
-        'events',
-        'articles',
-        'categories',
-        'tags',
-        'locales',
-        'organizations',
-        'places',
-    ];
-
-    /**
-     * Output formats for articles and places.
-     *
-     * @var array
-     */
-    protected $formats = [
-        'json',
-        'csv',
-    ];
 
     /**
      * Get one event API method.
@@ -105,10 +102,10 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getEvent($id)
+    public function getEvent(int $id) : object
     {
         $this->validate();
-        $this->url = $this->apiUrl.'events/'.$id;
+        $this->url = self::API_URL . '/events/'.$id;
 
         return $this->fire();
     }
@@ -118,10 +115,10 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getEvents()
+    public function getEvents() : object
     {
         $this->validate();
-        $this->url = $this->apiUrl.'events?';
+        $this->url = self::API_URL . '/events?';
 
         return $this->fire();
     }
@@ -131,10 +128,10 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getArticles()
+    public function getArticles() : object
     {
         $this->validate();
-        $this->url = $this->apiUrl.'articles?';
+        $this->url = self::API_URL . '/articles?';
 
         return $this->fire();
     }
@@ -144,10 +141,10 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getCategories()
+    public function getCategories() : object
     {
         $this->validate();
-        $this->url = $this->apiUrl.'categories?';
+        $this->url = self::API_URL . '/categories?';
 
         return $this->fire();
     }
@@ -157,10 +154,10 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getTags()
+    public function getTags() : object
     {
         $this->validate();
-        $this->url = $this->apiUrl.'tags?';
+        $this->url = self::API_URL . '/tags?';
 
         return $this->fire();
     }
@@ -170,10 +167,10 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getLocales()
+    public function getLocales() : object
     {
         $this->validate();
-        $this->url = $this->apiUrl.'locales?';
+        $this->url = self::API_URL . '/locales?';
 
         return $this->fire();
     }
@@ -183,10 +180,10 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getOrganizations()
+    public function getOrganizations() : object
     {
         $this->validate();
-        $this->url = $this->apiUrl.'organizations?';
+        $this->url = self::API_URL . '/organizations?';
 
         return $this->fire();
     }
@@ -196,10 +193,10 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getPlaces()
+    public function getPlaces() : object
     {
         $this->validate();
-        $this->url = $this->apiUrl.'places?';
+        $this->url = self::API_URL . '/places?';
 
         return $this->fire();
     }
@@ -211,10 +208,10 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getPlace($id)
+    public function getPlace(int $id) : object
     {
         $this->validate();
-        $this->url = $this->apiUrl.'places/'.$id;
+        $this->url = self::API_URL . '/places/'.$id;
 
         return $this->fire();
     }
@@ -225,7 +222,7 @@ class Api extends ApiActions
      * @param $param
      * @param $value
      */
-    public function addCustomParam($param, $value)
+    public function addCustomParam(string $param, $value)
     {
         $this->params[$param] = $value;
     }
@@ -235,7 +232,7 @@ class Api extends ApiActions
      *
      * @param array $ids
      */
-    public function setIDs($ids)
+    public function setIDs(array $ids)
     {
         $this->params['ids'] = $ids;
     }
@@ -245,7 +242,7 @@ class Api extends ApiActions
      *
      * @param array $locales
      */
-    public function setLocales($locales)
+    public function setLocales(array $locales)
     {
         $this->params['locales'] = $locales;
     }
@@ -255,7 +252,7 @@ class Api extends ApiActions
      *
      * @param array $places
      */
-    public function setPlaces($places)
+    public function setPlaces(array $places)
     {
         $this->params['places'] = $places;
     }
@@ -265,7 +262,7 @@ class Api extends ApiActions
      *
      * @param array $subordinations
      */
-    public function setSubordinations($subordinations)
+    public function setSubordinations(array $subordinations)
     {
         $this->params['subordinations'] = $subordinations;
     }
@@ -275,7 +272,7 @@ class Api extends ApiActions
      *
      * @param array $strictSubordinations
      */
-    public function setStrictSubordinations($strictSubordinations)
+    public function setStrictSubordinations(array $strictSubordinations)
     {
         $this->params['strictSubordinations'] = $strictSubordinations;
     }
@@ -285,7 +282,7 @@ class Api extends ApiActions
      *
      * @param array $organizations
      */
-    public function setOrganizations($organizations)
+    public function setOrganizations(array $organizations)
     {
         $this->params['organizations'] = $organizations;
     }
@@ -295,7 +292,7 @@ class Api extends ApiActions
      *
      * @param array $fields
      */
-    public function setFilterByFields($fields)
+    public function setFilterByFields(array $fields)
     {
         $this->params['fields'] = $fields;
     }
@@ -306,7 +303,7 @@ class Api extends ApiActions
      * @param int $limit
      * @param int $offset
      */
-    public function setLimit($limit, $offset = 0)
+    public function setLimit(int $limit, int $offset = 0)
     {
         $this->params['limit'] = $limit;
         $this->params['offset'] = $offset;
@@ -318,7 +315,7 @@ class Api extends ApiActions
      * @param string $field
      * @param bool   $descending
      */
-    public function addSortField($field, $descending = false)
+    public function addSortField(string $field, bool $descending = false)
     {
         if ($descending === true) {
             $this->sort[] = '-'.$field;
@@ -332,7 +329,7 @@ class Api extends ApiActions
      *
      * @param $status
      */
-    public function setStatus($status)
+    public function setStatus(string $status)
     {
         $this->params['status'] = $status;
     }
@@ -342,7 +339,7 @@ class Api extends ApiActions
      *
      * @param string $start
      */
-    public function setStart($start)
+    public function setStart(string $start)
     {
         $this->params['start'] = $this->getTimestamp($start);
     }
@@ -352,7 +349,7 @@ class Api extends ApiActions
      *
      * @param string $end
      */
-    public function setEnd($end)
+    public function setEnd(string $end)
     {
         $this->params['end'] = $this->getTimestamp($end);
     }
@@ -362,7 +359,7 @@ class Api extends ApiActions
      *
      * @param string $dateStart
      */
-    public function setCreateDateStart($dateStart)
+    public function setCreateDateStart(string $dateStart)
     {
         $this->params['createDateStart'] = $this->getTimestamp($dateStart);
     }
@@ -372,7 +369,7 @@ class Api extends ApiActions
      *
      * @param string $dateEnd
      */
-    public function setCreateDateEnd($dateEnd)
+    public function setCreateDateEnd(string $dateEnd)
     {
         $this->params['createDateEnd'] = $this->getTimestamp($dateEnd);
     }
@@ -382,7 +379,7 @@ class Api extends ApiActions
      *
      * @param string $query
      */
-    public function setNameQuery($query)
+    public function setNameQuery(string $query)
     {
         $this->params['nameQuery'] = urlencode($query);
     }
@@ -402,7 +399,7 @@ class Api extends ApiActions
      *
      * @param $format
      */
-    public function setFormat($format)
+    public function setFormat(string $format)
     {
         $this->params['format'] = $format;
     }
@@ -412,7 +409,7 @@ class Api extends ApiActions
      *
      * @param string $integration
      */
-    public function setWithIntegration($integration)
+    public function setWithIntegration(string $integration)
     {
         $this->params['withIntegration'] = $integration;
     }
@@ -422,7 +419,7 @@ class Api extends ApiActions
      *
      * @param int $sourceId
      */
-    public function setInSourceId($sourceId)
+    public function setInSourceId(int $sourceId)
     {
         $this->params['inSourceId'] = $sourceId;
     }
@@ -432,7 +429,7 @@ class Api extends ApiActions
      *
      * @param bool $onlyIntegrated
      */
-    public function setOnlyIntegrated($onlyIntegrated)
+    public function setOnlyIntegrated(bool $onlyIntegrated)
     {
         if (true === $onlyIntegrated) {
             $this->params['onlyIntegrated'] = 'true';
@@ -452,9 +449,9 @@ class Api extends ApiActions
     /**
      * Return API version.
      *
-     * @return int
+     * @return string
      */
-    public function getAPIVersion()
+    public function getAPIVersion() : string
     {
         return self::API_VERSION;
     }
@@ -464,9 +461,9 @@ class Api extends ApiActions
      *
      * @return array
      */
-    public function getStatuses()
+    public function getStatuses() : array
     {
-        return $this->allowedStatuses;
+        return self::ALLOWED_STATUSES;
     }
 
     /**
@@ -474,61 +471,33 @@ class Api extends ApiActions
      *
      * @return array
      */
-    public function getTypes()
+    public function getTypes() : array
     {
-        return $this->types;
+        return self::CATEGORIES_TYPES;
     }
 
     /**
      * Get image url by name
      * API can resize image to some width and height.
      *
-     * @param string $name   image file name from request
+     * @param string $imageName   image file name from request
      * @param int    $width  image width
      * @param int    $height image height
      *
      * @return string
      */
-    public function getImageUrl($name, $width = null, $height = null)
+    public function getImageUrl(string $imageName, int $width = null, int $height = null) : string
     {
         if ($width !== null && $height !== null) {
-            $fileName = pathinfo($name, PATHINFO_FILENAME);
-            $extension = pathinfo($name, PATHINFO_EXTENSION);
-            $name = $fileName.'_w'.$width.'_h'.$height.'.'.$extension;
+            $fileName = pathinfo($imageName, PATHINFO_FILENAME);
+            $extension = pathinfo($imageName, PATHINFO_EXTENSION);
+            $imageName = $fileName.'_w'.$width.'_h'.$height.'.'.$extension;
         }
 
-        return $this->uploadsUrl.$name;
+        return self::UPLOADS_URL . $imageName;
     }
 
-    /**
-     * Convert timestamp to formatted date.
-     *
-     * @param $timestamp
-     * @param $format
-     *
-     * @return string
-     */
-    public function getDate($timestamp, $format)
-    {
-        $dateTime = new \DateTime();
-        $dateTime->setTimestamp($timestamp / 1000);
 
-        return $dateTime->format($format);
-    }
-
-    /**
-     * Get timestamp from date.
-     *
-     * @param $date
-     *
-     * @return int
-     */
-    public function getTimestamp($date)
-    {
-        $dateTime = new \DateTime($date);
-
-        return $dateTime->getTimestamp() * 1000;
-    }
 
     /**
      * Validate type, format, status params.
@@ -568,15 +537,18 @@ class Api extends ApiActions
      *
      * @return string
      */
-    protected function getRequestUrl()
+    protected function getRequestUrl() : string
     {
         if ($this->url === '') {
             throw new \Exception('API method must be set.');
         }
+
         if (!empty($this->sort)) {
             $this->params['sort'] = $this->sort;
         }
+
         $preparedUrl = '';
+
         foreach ($this->params as $key => $param) {
             if (is_array($param)) {
                 $preparedUrl .= $key.'='.implode(',', $param);
@@ -585,8 +557,9 @@ class Api extends ApiActions
             }
             $preparedUrl .= '&';
         }
+
         $preparedUrl = substr($preparedUrl, 0, -1);
 
-        return $this->url.$preparedUrl;
+        return $this->url . $preparedUrl;
     }
 }

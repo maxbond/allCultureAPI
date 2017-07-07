@@ -33,7 +33,7 @@ abstract class ApiActions
      *
      * @return object
      */
-    protected function fire()
+    protected function fire() : object
     {
         $response = null;
         try {
