@@ -102,10 +102,10 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getEvent(int $id) : object
+    public function getEvent(int $id): object
     {
         $this->validate();
-        $this->url = self::API_URL . '/events/'.$id;
+        $this->url = self::API_URL . '/events/' . $id;
 
         return $this->fire();
     }
@@ -115,7 +115,7 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getEvents() : object
+    public function getEvents(): object
     {
         $this->validate();
         $this->url = self::API_URL . '/events?';
@@ -128,7 +128,7 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getArticles() : object
+    public function getArticles(): object
     {
         $this->validate();
         $this->url = self::API_URL . '/articles?';
@@ -141,7 +141,7 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getCategories() : object
+    public function getCategories(): object
     {
         $this->validate();
         $this->url = self::API_URL . '/categories?';
@@ -154,7 +154,7 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getTags() : object
+    public function getTags(): object
     {
         $this->validate();
         $this->url = self::API_URL . '/tags?';
@@ -167,7 +167,7 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getLocales() : object
+    public function getLocales(): object
     {
         $this->validate();
         $this->url = self::API_URL . '/locales?';
@@ -180,7 +180,7 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getOrganizations() : object
+    public function getOrganizations(): object
     {
         $this->validate();
         $this->url = self::API_URL . '/organizations?';
@@ -193,7 +193,7 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getPlaces() : object
+    public function getPlaces(): object
     {
         $this->validate();
         $this->url = self::API_URL . '/places?';
@@ -208,10 +208,10 @@ class Api extends ApiActions
      *
      * @return object
      */
-    public function getPlace(int $id) : object
+    public function getPlace(int $id): object
     {
         $this->validate();
-        $this->url = self::API_URL . '/places/'.$id;
+        $this->url = self::API_URL . '/places/' . $id;
 
         return $this->fire();
     }
@@ -313,12 +313,12 @@ class Api extends ApiActions
      * Add sorting field.
      *
      * @param string $field
-     * @param bool   $descending
+     * @param bool $descending
      */
     public function addSortField(string $field, $descending = false)
     {
         if ($descending === true) {
-            $this->sort[] = '-'.$field;
+            $this->sort[] = '-' . $field;
         } else {
             $this->sort[] = $field;
         }
@@ -451,7 +451,7 @@ class Api extends ApiActions
      *
      * @return string
      */
-    public function getAPIVersion() : string
+    public function getAPIVersion(): string
     {
         return self::API_VERSION;
     }
@@ -461,7 +461,7 @@ class Api extends ApiActions
      *
      * @return array
      */
-    public function getStatuses() : array
+    public function getStatuses(): array
     {
         return self::ALLOWED_STATUSES;
     }
@@ -471,7 +471,7 @@ class Api extends ApiActions
      *
      * @return array
      */
-    public function getTypes() : array
+    public function getTypes(): array
     {
         return self::CATEGORIES_TYPES;
     }
@@ -480,23 +480,22 @@ class Api extends ApiActions
      * Get image url by name
      * API can resize image to some width and height.
      *
-     * @param string $imageName   image file name from request
-     * @param int    $width  image width
-     * @param int    $height image height
+     * @param string $imageName image file name from request
+     * @param int $width image width
+     * @param int $height image height
      *
      * @return string
      */
-    public function getImageUrl(string $imageName, int $width = null, int $height = null) : string
+    public function getImageUrl(string $imageName, int $width = null, int $height = null): string
     {
         if ($width !== null && $height !== null) {
             $fileName = pathinfo($imageName, PATHINFO_FILENAME);
             $extension = pathinfo($imageName, PATHINFO_EXTENSION);
-            $imageName = $fileName.'_w'.$width.'_h'.$height.'.'.$extension;
+            $imageName = $fileName . '_w' . $width . '_h' . $height . '.' . $extension;
         }
 
         return self::UPLOADS_URL . $imageName;
     }
-
 
 
     /**
@@ -510,22 +509,22 @@ class Api extends ApiActions
         if (!empty($this->params['type'])) {
             if (!in_array($this->params['type'], self::CATEGORIES_TYPES)) {
                 throw new \Exception('Unknown category '
-                    .$this->params['type'].'. Must be one from list: '.implode(',', self::CATEGORIES_TYPES));
+                    . $this->params['type'] . '. Must be one from list: ' . implode(',', self::CATEGORIES_TYPES));
             }
         }
         // Format must be one from $this->formats
         if (!empty($this->params['format'])) {
             if (!in_array($this->params['format'], self::OUTPUT_FORMATS)) {
                 throw new \Exception('Unknown format '
-                    .$this->params['format'].'. Must be one from list: '
-                    .implode(',', self::OUTPUT_FORMATS));
+                    . $this->params['format'] . '. Must be one from list: '
+                    . implode(',', self::OUTPUT_FORMATS));
             }
         }
         //Status must be one from list $this->allowedStatuses
         if (!empty($this->params['status'])) {
             if (!in_array($this->params['status'], self::ALLOWED_STATUSES)) {
                 throw new \Exception('Wrong status. Here allowed one from list - '
-                    .implode(',', self::ALLOWED_STATUSES));
+                    . implode(',', self::ALLOWED_STATUSES));
             }
         }
     }
@@ -537,7 +536,7 @@ class Api extends ApiActions
      *
      * @return string
      */
-    protected function getRequestUrl() : string
+    protected function getRequestUrl(): string
     {
         if ($this->url === '') {
             throw new \Exception('API method must be set.');
@@ -551,9 +550,9 @@ class Api extends ApiActions
 
         foreach ($this->params as $key => $param) {
             if (is_array($param)) {
-                $preparedUrl .= $key.'='.implode(',', $param);
+                $preparedUrl .= $key . '=' . implode(',', $param);
             } else {
-                $preparedUrl .= $key.'='.$param;
+                $preparedUrl .= $key . '=' . $param;
             }
             $preparedUrl .= '&';
         }

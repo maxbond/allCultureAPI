@@ -12,7 +12,7 @@ trait Dates
      *
      * @return string
      */
-    public function getDate(int $timestamp, string $format) : string
+    public function getDate(int $timestamp, string $format): string
     {
         $dateTime = new \DateTime();
         $dateTime->setTimestamp($timestamp / 1000);
@@ -27,7 +27,7 @@ trait Dates
      *
      * @return int
      */
-    public function getTimestamp(string $date) : int
+    public function getTimestamp(string $date): int
     {
         $dateTime = new \DateTime($date);
 

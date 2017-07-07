@@ -24,7 +24,7 @@ class CurlRequest implements RequestInterface
      *
      * @return string
      */
-    public function doRequest(string $url) : string
+    public function doRequest(string $url): string
     {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, self::CONNECTION_TIMEOUT);
@@ -35,7 +35,7 @@ class CurlRequest implements RequestInterface
         if (false === $response) {
             curl_close($curl);
             throw new \Exception("Can't get remote content: "
-                .curl_error($curl));
+                . curl_error($curl));
         }
         curl_close($curl);
 

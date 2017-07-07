@@ -33,7 +33,7 @@ abstract class ApiActions
      *
      * @return object
      */
-    protected function fire() : object
+    protected function fire(): object
     {
         $response = null;
         try {
@@ -49,7 +49,7 @@ abstract class ApiActions
         if ($response) {
             $jsonResponse = json_decode($response);
             if (isset($jsonResponse->error)) {
-                throw new \Exception('API error: '.$jsonResponse->error);
+                throw new \Exception('API error: ' . $jsonResponse->error);
             }
 
             return $jsonResponse;
